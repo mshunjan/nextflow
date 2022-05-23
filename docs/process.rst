@@ -1049,7 +1049,7 @@ Some caveats on glob pattern behavior:
   resulting output channel, these files may still be transferred from the task scratch directory
   to the original task work directory. Therefore, to avoid unnecessary file copies, avoid using
   loose wildcards when defining output files, e.g. ``path '*'``. Instead, use a prefix or a suffix
-  to restrict the set of matching files to only the expected ones, e.g. ``path 'prefix_*.sorted.bam'``. 
+  to restrict the set of matching files to only the expected ones, e.g. ``path 'prefix_*.sorted.bam'``.
 
 Read more about glob syntax at the following link `What is a glob?`_
 
@@ -1197,7 +1197,7 @@ process if the declared output is not produced::
 
 In this example, the process is normally expected to produce an ``output.txt`` file, but in the
 cases where the file is legitimately missing, the process does not fail. The output channel will
-only contain values for those processes that produce ``output.txt``. 
+only contain values for those processes that produce ``output.txt``.
 
 
 When
@@ -1282,7 +1282,7 @@ afterScript
 The ``afterScript`` directive allows you to execute a custom (Bash) snippet immediately *after* the main process has run.
 This may be useful to clean up your staging area.
 
-.. note:: When combined with the :ref:`container directive <process-container>`, the ``afterScript`` will be 
+.. note:: When combined with the :ref:`container directive <process-container>`, the ``afterScript`` will be
    executed outside the specified container. In other words, the ``afterScript`` is always executed in the host environment.
 
 
@@ -1304,7 +1304,7 @@ For example::
       """
     }
 
-.. note:: When combined with the :ref:`container directive <process-container>`, the ``beforeScript`` will be 
+.. note:: When combined with the :ref:`container directive <process-container>`, the ``beforeScript`` will be
    executed outside the specified container. In other words, the ``beforeScript`` is always executed in the host environment.
 
 
