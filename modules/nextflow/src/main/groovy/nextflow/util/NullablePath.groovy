@@ -11,13 +11,13 @@ import java.nio.file.Path
  */
 @EqualsAndHashCode
 @Slf4j
-class NullablePath implements Path{
+class NullablePath implements Path {
 
     @PackageScope
     @Delegate
     Path delegate
 
-    NullablePath(String path){
+    NullablePath(String path) {
         delegate = of(path)
     }
 }
