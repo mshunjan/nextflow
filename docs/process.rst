@@ -537,17 +537,20 @@ section::
       foo('/some/data/file.txt')
     }
 
-In the case an input `path` doesn't exist, the process will be aborted. If you want the process will be executed
-independently if the file exists or not, you can set the attribute `nullable` as true:
+If a ``path`` input doesn't exist, the process will fail. You can make a process execute in this case
+by making the path ``nullable``::
 
     process foo {
       input:
-        path x, stageAs: 'data.txt', nullable:true from '/some/data/file.txt'
+      tuple val(v), path(x, stageAs: 'data.txt', nullable: true)
 
       """
       [[ -f data.txt ]] your_command --in data.txt || other_command
       """
     }
+
+Nullable paths are useful when a process emits or receives a tuple containing a path that may not exist.
+With a nullable path, you can handle the null case directly in your process script.
 
 
 Multiple input files
@@ -1016,7 +1019,7 @@ Name                Description
 ``type``            Type of paths returned, either ``file``, ``dir`` or ``any`` (default: ``any``, or ``file`` if the specified file name pattern contains a double star (``**``))
 ``maxDepth``        Maximum number of directory levels to visit (default: no limit)
 ``includeInputs``   When ``true`` any input files matching an output file glob pattern are included.
-``nullable``        When ``true`` emit a NullablePath instead to abort the process
+``nullable``        When ``true`` emit a null path instead of failing, if the output path doesn't exist
 ================== =====================
 
 
