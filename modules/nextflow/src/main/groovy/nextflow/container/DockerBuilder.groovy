@@ -48,6 +48,8 @@ class DockerBuilder extends ContainerBuilder<DockerBuilder> {
     private boolean legacy = System.getenv('NXF_DOCKER_LEGACY')=='true'
 
     private String mountFlags0
+    
+    private boolean autoMounts 
 
     DockerBuilder( String name ) {
         this.image = name
@@ -95,6 +97,9 @@ class DockerBuilder extends ContainerBuilder<DockerBuilder> {
 
         if( params.containsKey('privileged') )
             this.privileged = params.privileged?.toString() == 'true'
+        
+        if( params.autoMounts )
+            autoMounts = params.autoMounts.toString() == 'true'
 
         return this
     }
@@ -145,7 +150,10 @@ class DockerBuilder extends ContainerBuilder<DockerBuilder> {
             result << USER_AND_HOME_EMULATION << ' '
 
         // mount the input folders
-        result << makeVolumes(mounts)
+        if( autoMounts ) {
+            makeVolumes(mounts, result)
+        }
+
         result << '-w "$PWD" '
 
         if( entryPoint )
